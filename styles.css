@@ -1,8 +1,9 @@
-/* 思源宋体 (Noto Serif SC, OFL) — self-hosted subset of only the characters on this page, so it also loads in mainland China.
-   Re-subset after changing copy: see README. Characters outside the subset (e.g. a guest's name) fall back to Songti. */
-@font-face { font-family: "777 Serif"; font-weight: 300; font-display: swap; src: url("fonts/serif-300.woff2") format("woff2"); }
-@font-face { font-family: "777 Serif"; font-weight: 400; font-display: swap; src: url("fonts/serif-400.woff2") format("woff2"); }
-@font-face { font-family: "777 Serif"; font-weight: 600; font-display: swap; src: url("fonts/serif-600.woff2") format("woff2"); }
+/* 思源黑体 (Noto Sans SC, OFL) — self-hosted subset of only the characters on this page, so it also loads in mainland China.
+   Re-subset after changing copy: python3 tools/subset-font.py. Characters outside the subset (e.g. a guest's name) fall back to PingFang. */
+@font-face { font-family: "777 Sans"; font-weight: 200; font-display: swap; src: url("fonts/sans-200.woff2") format("woff2"); }
+@font-face { font-family: "777 Sans"; font-weight: 300; font-display: swap; src: url("fonts/sans-300.woff2") format("woff2"); }
+@font-face { font-family: "777 Sans"; font-weight: 400; font-display: swap; src: url("fonts/sans-400.woff2") format("woff2"); }
+@font-face { font-family: "777 Sans"; font-weight: 500; font-display: swap; src: url("fonts/sans-500.woff2") format("woff2"); }
 :root {
   --navy: #101B2B;
   --charcoal: #111318;
@@ -12,7 +13,7 @@
   --white: #FAFAF8;
   --ink: #1d2230;
 
-  --serif: "777 Serif", "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  --serif: "777 Sans", "Noto Sans SC", "Source Han Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   --sans: var(--serif);
   --cn: var(--serif);
   --ui: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif; /* typed input only */
@@ -272,7 +273,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .card__title-cn {
   display: block;
   margin-top: 14px;
-  font: 300 clamp(32px, 8.4vw, 46px)/1.3 var(--cn);
+  font: 200 clamp(32px, 8.4vw, 46px)/1.3 var(--cn);
   letter-spacing: .2em;
   padding-left: .2em;
   color: var(--navy);
@@ -286,7 +287,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .card__body {
   max-width: 30em;
   margin: 0 auto;
-  font: 400 clamp(15.5px, 3.9vw, 17px)/2.05 var(--cn);
+  font: 300 clamp(15.5px, 3.9vw, 17px)/2.05 var(--cn);
   color: #343a47;
   text-align: left;
   text-wrap: pretty;
@@ -304,7 +305,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   border-bottom: 1px solid rgba(198, 166, 107, .5);
 }
 .card__details dt, .rsvp__done-details dt {
-  font: 600 12px/1 var(--sans);
+  font: 500 12px/1 var(--sans);
   letter-spacing: .6em;
   padding-left: .6em;
   text-transform: uppercase;
@@ -347,7 +348,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .field { display: grid; gap: 7px; margin: 0; padding: 0; border: 0; min-width: 0; }
 .field > span, .field legend {
   padding: 0;
-  font: 600 13px/1.4 var(--sans);
+  font: 500 13px/1.4 var(--sans);
   letter-spacing: .06em;
   color: var(--navy);
 }
@@ -395,7 +396,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   min-height: 54px;
   margin-top: 6px;
   padding: 0 24px;
-  font: 600 14px/1 var(--sans);
+  font: 500 14px/1 var(--sans);
   letter-spacing: .6em;
   padding-left: calc(24px + .6em);
   color: var(--ivory);

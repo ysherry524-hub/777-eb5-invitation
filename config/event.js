@@ -1,5 +1,5 @@
 /*
- * 777 Tower — EB-5 Investment Presentation invitation.
+ * 777 Tower EB-5 投资项目发布会 · 邀请函.
  * Every word, date and photo on the page comes from this file. Edit here only.
  * After editing: bump the ?v= numbers in index.html, re-run `npm run email` if the envelope changed.
  */
