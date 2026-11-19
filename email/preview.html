@@ -1,0 +1,25 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Email preview — 777 EB-5 invitation</title>
+<style>
+  body { margin: 0; padding: 24px 16px; background: #e9e6df; font: 14px/1.5 -apple-system, Helvetica, Arial, sans-serif; color: #333; }
+  h1 { font-size: 15px; margin: 0 0 4px; } p { margin: 0 0 18px; color: #666; }
+  .row { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+  figure { margin: 0; } figcaption { font-size: 12px; color: #777; margin-bottom: 6px; }
+  iframe { border: 1px solid #ccc; background: #fff; display: block; }
+</style>
+<h1>Email preview (local)</h1>
+<p>Same file as <code>invitation-email.html</code>, with the placeholders filled with local test values. Images and links point at the site this preview is served from.</p>
+<div class="row">
+  <figure><figcaption>Desktop · 680px</figcaption><iframe id="d" width="680" height="1180"></iframe></figure>
+  <figure><figcaption>Phone · 375px</figcaption><iframe id="m" width="375" height="1000"></iframe></figure>
+</div>
+<script>
+  // preview only (the email itself has no JavaScript)
+  fetch("invitation-email.html").then(r => r.text()).then(html => {
+    const base = new URL("..", location.href).href.replace(/\/$/, "");
+    html = html.replaceAll("{{ASSET_BASE}}", base).replaceAll("{{INVITATION_URL}}", base + "/");
+    d.srcdoc = m.srcdoc = html;
+  });
+</script>
