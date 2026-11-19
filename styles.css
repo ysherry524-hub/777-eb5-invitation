@@ -287,8 +287,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   margin: 0 auto;
   font: 400 clamp(16.5px, 4.2vw, 18px)/2 var(--cn);
   color: #2b303c;
-  text-align: left;
-  text-wrap: pretty;
+  text-align: justify;      /* Chinese body text: flush to both edges on every screen width */
+  text-wrap: wrap;          /* not pretty/balance: Safari shortens lines and leaves a ragged right edge */
 }
 .card__body p + p { margin-top: .7em; }
 .card__salutation { font-weight: 500; color: var(--navy); }
