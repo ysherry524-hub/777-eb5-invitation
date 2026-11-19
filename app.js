@@ -93,9 +93,9 @@
       + '<circle r="57" fill="#8e8e8e"/>'
       + '<circle r="54" fill="none" stroke="#c9c9c9" stroke-width="2.4"/>'
       + '<circle r="39" fill="none" stroke="#b4b4b4" stroke-width="1.1"/>'
-      + '<text font-family="777 Sans, PingFang SC, sans-serif" font-weight="500" font-size="7.4" letter-spacing="2.6" fill="#c4c4c4">'
+      + '<text font-family="777 Fangsong, STFangsong, serif" font-weight="400" font-size="8" letter-spacing="2.6" fill="#c4c4c4">'
       + '<textPath href="#' + id + 'ring" startOffset="0">777 TOWER · 洛杉矶 · 私人邀请函 · EB-5 ·</textPath></text>'
-      + '<text y="14" text-anchor="middle" font-family="777 Sans, PingFang SC, sans-serif" font-weight="300" font-size="38" letter-spacing="-1.5" fill="#e6e6e6">777</text>'
+      + '<text y="14" text-anchor="middle" font-family="777 Fangsong, STFangsong, serif" font-weight="400" font-size="42" letter-spacing="-1.5" fill="#e6e6e6">777</text>'
       + '</g></svg>';
   }
   seal.innerHTML = sealSVG("s1", !capture);
