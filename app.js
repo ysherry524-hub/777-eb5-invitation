@@ -12,12 +12,18 @@
   var capture = params.get("capture");
   var confetti = window.Confetti($(".confetti"));
 
+  /* ---------- derived text (weekday computed so a date change can't leave it wrong) ---------- */
+  var ymd = E.date.split("-").map(Number);
+  E.displayDate = ymd[0] + " 年 " + ymd[1] + " 月 " + ymd[2] + " 日";
+  E.weekday = "星期" + "日一二三四五六"[new Date(Date.UTC(ymd[0], ymd[1] - 1, ymd[2])).getUTCDay()];
+  E.displayDateFull = E.displayDate + "（" + E.weekday + "）";
+  E.displayDateShort = ymd[1] + " 月 " + ymd[2] + " 日";
+  E.venueFull = E.venue + " · " + E.addressCn;
+
   /* ---------- content from config ---------- */
   $$("[data-text]").forEach(function (el) { el.textContent = E[el.dataset.text]; });
   $$("[data-rsvp]").forEach(function (el) { el.textContent = E.rsvp[el.dataset.rsvp]; });
   $(".stage__hint").textContent = matchMedia("(hover: none)").matches ? E.envelopeHintTouch : E.envelopeHint;
-  $(".card__address").textContent = E.address.join(", ");
-  $(".card__address-1").textContent = E.address.join(", ");
   E.body.forEach(function (text) {
     var p = document.createElement("p");
     p.textContent = text;
@@ -87,9 +93,9 @@
       + '<circle r="57" fill="#8e8e8e"/>'
       + '<circle r="54" fill="none" stroke="#c9c9c9" stroke-width="2.4"/>'
       + '<circle r="39" fill="none" stroke="#b4b4b4" stroke-width="1.1"/>'
-      + '<text font-family="Inter, Helvetica, sans-serif" font-weight="500" font-size="7.6" letter-spacing="3" fill="#c4c4c4">'
-      + '<textPath href="#' + id + 'ring" startOffset="0">777 TOWER · LOS ANGELES · PRIVATE INVITATION ·</textPath></text>'
-      + '<text y="14" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="600" font-size="43" letter-spacing="-1.5" fill="#e6e6e6">777</text>'
+      + '<text font-family="Noto Serif SC, Songti SC, serif" font-weight="600" font-size="7.4" letter-spacing="2.6" fill="#c4c4c4">'
+      + '<textPath href="#' + id + 'ring" startOffset="0">777 TOWER · 洛杉矶 · 私人邀请函 · EB-5 ·</textPath></text>'
+      + '<text y="14" text-anchor="middle" font-family="Noto Serif SC, Songti SC, serif" font-weight="600" font-size="40" letter-spacing="-1.5" fill="#e6e6e6">777</text>'
       + '</g></svg>';
   }
   seal.innerHTML = sealSVG("s1", !capture);
@@ -292,10 +298,10 @@
   }
 
   var MSG = {
-    invalid_name: ["name", "请填写姓名 / Please enter your name."],
-    invalid_email: ["email", "请填写有效的电子邮箱 / Please enter a valid email."],
-    invalid_phone: ["phone", "电话号码格式不正确 / Please check the phone number."],
-    invalid_status: ["status", "请选择出席意向 / Please choose an option."],
+    invalid_name: ["name", "请填写姓名"],
+    invalid_email: ["email", "请填写有效的电子邮箱"],
+    invalid_phone: ["phone", "电话号码格式不正确"],
+    invalid_status: ["status", "请选择出席意向"],
     email_exists: [null, "该邮箱已有登记记录。如需修改，请使用邀请邮件中的专属链接，或直接联系 777 Tower。"],
     invalid_token: [null, "邀请链接无效或已过期，请联系 777 Tower。"],
     rsvp_closed: [null, "本次活动的回复通道已关闭，如需协助请联系 777 Tower。"],
@@ -344,7 +350,7 @@
       .catch(function (err) {
         var m = MSG[err.message];
         if (m && m[0]) { fieldErr(m[0], m[1]); form.elements[m[0]].focus && form.elements[m[0]].focus(); }
-        else statusEl.textContent = m ? m[1] : "提交失败，请检查网络后重试。您填写的内容已保留。/ Something went wrong — please try again.";
+        else statusEl.textContent = m ? m[1] : "提交失败，请检查网络后重试。您填写的内容已保留。";
       })
       .finally(function () {
         busy = false;
@@ -356,7 +362,7 @@
   function showDone(status) {
     var yes = status === "attending";
     $(".rsvp__done-title").textContent = yes ? E.rsvp.attendingTitle : E.rsvp.declinedTitle;
-    $(".rsvp__done-text").textContent = yes ? E.rsvp.attendingText.replace("{date}", E.displayDateCn) : E.rsvp.declinedText;
+    $(".rsvp__done-text").textContent = yes ? E.rsvp.attendingText.replace("{date}", E.displayDateShort) : E.rsvp.declinedText;
     $(".rsvp__done-details").hidden = !yes;
     $(".rsvp__cal").hidden = !yes;
     form.hidden = true;
@@ -372,13 +378,13 @@
   /* calendar: .ics file + Google Calendar link, built from the config */
   (function () {
     var d = E.date.replace(/-/g, ""), s = E.start.replace(":", "") + "00", t = E.end.replace(":", "") + "00";
-    var where = E.venue + ", " + E.address.join(", ");
+    var where = "777 Tower, 9th Floor, " + E.addressMap;
     var ics = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//777 Tower//Invitation//EN", "BEGIN:VEVENT",
       "UID:" + E.eventId + "@777tower", "DTSTAMP:" + new Date().toISOString().replace(/[-:]|\.\d+/g, ""),
       "DTSTART;TZID=" + E.timezone + ":" + d + "T" + s, "DTEND;TZID=" + E.timezone + ":" + d + "T" + t,
-      "SUMMARY:" + E.name, "LOCATION:" + where.replace(/,/g, "\\,"), "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+      "SUMMARY:" + E.calendarTitle, "LOCATION:" + where.replace(/,/g, "\\,"), "END:VEVENT", "END:VCALENDAR"].join("\r\n");
     $('[data-cal="ics"]').href = "data:text/calendar;charset=utf-8," + encodeURIComponent(ics);
-    $('[data-cal="google"]').href = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(E.name)
+    $('[data-cal="google"]').href = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent(E.calendarTitle)
       + "&dates=" + d + "T" + s + "/" + d + "T" + t + "&ctz=" + encodeURIComponent(E.timezone) + "&location=" + encodeURIComponent(where);
   })();
 

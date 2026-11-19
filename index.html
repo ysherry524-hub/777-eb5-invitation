@@ -3,21 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>777 Tower EB-5 Investment Presentation — Invitation</title>
+<title>777 Tower EB-5 投资项目发布会 · 邀请函</title>
 <meta name="description" content="777 Tower EB-5 投资项目发布会 · 邀请函">
 <meta name="robots" content="noindex">
 <meta name="referrer" content="no-referrer">
 <meta name="theme-color" content="#101B2B">
-<meta property="og:title" content="777 Tower EB-5 Investment Presentation">
-<meta property="og:description" content="A private invitation from 777 Tower · 777 Tower EB-5 投资项目发布会">
+<meta property="og:title" content="777 Tower EB-5 投资项目发布会">
+<meta property="og:description" content="来自 777 Tower 的私人邀请函">
 <meta property="og:image" content="email/envelope.jpg">
 <meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- non-blocking: Google Fonts is unreachable in mainland China; system fonts take over there -->
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<link rel="preload" href="fonts/serif-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="img/logo-dark.webp">
-<link rel="stylesheet" href="styles.css?v=1">
+<link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
 
@@ -77,12 +74,12 @@
   <canvas class="confetti" aria-hidden="true"></canvas>
 
   <!-- Scene 1–2: the sealed envelope -->
-  <section class="stage" aria-label="Sealed invitation">
+  <section class="stage" aria-label="密封的邀请函">
     <p class="stage__above" data-text="envelopeAbove"></p>
 
     <div class="env-wrap">
       <div class="env-shadow" aria-hidden="true"></div>
-      <button class="env" type="button" aria-label="Open your invitation from 777 Tower">
+      <button class="env" type="button" aria-label="开启 777 Tower 的邀请函">
         <svg class="env__back" viewBox="0 0 1420 1000" preserveAspectRatio="none" aria-hidden="true">
           <rect width="1420" height="1000" fill="url(#lattice)"/>
           <rect width="1420" height="1000" fill="#04070d" fill-opacity=".2"/>
@@ -91,8 +88,8 @@
         <div class="letter" aria-hidden="true">
           <div class="letter__inner">
             <img class="letter__logo" src="img/logo-dark.webp" alt="">
-            <span class="letter__kicker">You Are Cordially Invited</span>
-            <span class="letter__title">EB-5 Investment Presentation</span>
+            <span class="letter__kicker" data-text="letterKicker"></span>
+            <span class="letter__title" data-text="letterTitle"></span>
           </div>
         </div>
 
@@ -128,20 +125,20 @@
 
     <h1 class="stage__below" data-text="envelopeBelow"></h1>
     <p class="stage__hint"></p>
-    <button class="skip" type="button">Skip animation</button>
+    <button class="skip" type="button" data-text="skip"></button>
   </section>
 
   <!-- Scene 3: the formal invitation -->
   <section class="invitation" aria-labelledby="inv-title" hidden>
     <article class="card">
       <header class="card__head">
-        <img class="card__logo" src="img/logo-dark.webp" alt="777 Tower" width="54" height="71">
+        <img class="card__logo" src="img/logo-dark.webp" alt="777 Tower 标志" width="54" height="71">
         <p class="card__kicker" data-text="kicker"></p>
       </header>
 
       <h2 class="card__title" id="inv-title" tabindex="-1">
-        <span class="card__title-en" data-text="name"></span>
-        <span class="card__title-cn" data-text="nameCn"></span>
+        <span class="card__title-top" data-text="titleTop"></span>
+        <span class="card__title-cn" data-text="titleMain"></span>
       </h2>
 
       <div class="rule" aria-hidden="true"><span></span></div>
@@ -151,9 +148,9 @@
       </div>
 
       <dl class="card__details">
-        <div><dt>Date</dt><dd data-text="displayDate"></dd></div>
-        <div><dt>Time</dt><dd><span data-text="displayTime"></span><small data-text="timeNote"></small></dd></div>
-        <div><dt>Venue</dt><dd><span data-text="venue"></span><small class="card__address"></small></dd></div>
+        <div><dt>日期</dt><dd><span data-text="displayDate"></span><small data-text="weekday"></small></dd></div>
+        <div><dt>时间</dt><dd><span data-text="displayTime"></span><small data-text="timeNote"></small></dd></div>
+        <div><dt>地点</dt><dd><span data-text="venue"></span><small data-text="addressCn"></small></dd></div>
       </dl>
 
       <footer class="card__foot">
@@ -169,28 +166,28 @@
 
         <form class="rsvp__form" novalidate>
           <label class="field">
-            <span>Full Name / 姓名 <i aria-hidden="true">*</i></span>
+            <span><b data-rsvp="name"></b> <i aria-hidden="true">*</i></span>
             <input name="name" autocomplete="name" required maxlength="100">
             <em class="field__err" aria-live="polite"></em>
           </label>
           <label class="field">
-            <span>Email Address / 电子邮箱 <i aria-hidden="true">*</i></span>
+            <span><b data-rsvp="email"></b> <i aria-hidden="true">*</i></span>
             <input name="email" type="email" autocomplete="email" inputmode="email" required maxlength="254">
             <em class="field__err" aria-live="polite"></em>
           </label>
           <label class="field">
-            <span>Phone Number / 联系电话 <small>(optional)</small></span>
+            <span><b data-rsvp="phone"></b><small data-rsvp="optional"></small></span>
             <input name="phone" type="tel" autocomplete="tel" maxlength="40">
             <em class="field__err" aria-live="polite"></em>
           </label>
           <fieldset class="field choice">
-            <legend>Attendance / 出席意向 <i aria-hidden="true">*</i></legend>
+            <legend><b data-rsvp="attendance"></b> <i aria-hidden="true">*</i></legend>
             <label class="choice__opt"><input type="radio" name="status" value="attending" required><span data-rsvp="attend"></span></label>
             <label class="choice__opt"><input type="radio" name="status" value="declined"><span data-rsvp="decline"></span></label>
             <em class="field__err" aria-live="polite"></em>
           </fieldset>
           <!-- honeypot: real visitors never see or fill this -->
-          <label class="hp" aria-hidden="true">Company<input name="company" tabindex="-1" autocomplete="off"></label>
+          <label class="hp" aria-hidden="true">公司<input name="company" tabindex="-1" autocomplete="off"></label>
 
           <button class="rsvp__submit" type="submit"><span data-rsvp="button"></span></button>
           <p class="rsvp__status" role="status" aria-live="polite"></p>
@@ -200,23 +197,23 @@
           <h4 class="rsvp__done-title"></h4>
           <p class="rsvp__done-text"></p>
           <dl class="rsvp__done-details" hidden>
-            <div><dt>Date</dt><dd data-text="displayDate"></dd></div>
-            <div><dt>Time</dt><dd data-text="displayTime"></dd></div>
-            <div><dt>Address</dt><dd class="card__address-1"></dd></div>
+            <div><dt>日期</dt><dd data-text="displayDateFull"></dd></div>
+            <div><dt>时间</dt><dd data-text="displayTime"></dd></div>
+            <div><dt>地点</dt><dd data-text="venueFull"></dd></div>
           </dl>
           <p class="rsvp__cal" hidden>
-            <a class="rsvp__link" data-cal="ics" download="777-tower-eb5.ics">Add to Calendar</a>
-            <a class="rsvp__link" data-cal="google" target="_blank" rel="noopener">Google Calendar</a>
+            <a class="rsvp__link" data-cal="ics" data-rsvp="calendar" download="777-tower-eb5.ics"></a>
+            <a class="rsvp__link" data-cal="google" data-rsvp="google" target="_blank" rel="noopener"></a>
           </p>
-          <button class="rsvp__link rsvp__edit" type="button">修改回复 / Edit Response</button>
+          <button class="rsvp__link rsvp__edit" type="button" data-rsvp="edit"></button>
         </div>
       </section>
     </article>
   </section>
 </main>
 
-<script src="config/event.js?v=1"></script>
-<script src="confetti.js?v=1"></script>
-<script src="app.js?v=1"></script>
+<script src="config/event.js?v=3"></script>
+<script src="confetti.js?v=3"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>
